@@ -1,0 +1,5 @@
+[devserver]
+devserver01
+
+[control]
+bastion ansible_connection=local
