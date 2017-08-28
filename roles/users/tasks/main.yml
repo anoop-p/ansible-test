@@ -1,7 +1,6 @@
 ---
   - hosts: all
     become: true
-
     tasks:
       - name: Create users
         user: name={{ item.username}} shell=/bin/bash createhome=yes
