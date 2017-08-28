@@ -5,7 +5,7 @@
     tasks:
       - name: Create users
         user: name={{ item.username}} shell=/bin/bash createhome=yes
-        with_items: {{users}}
+        with_items: '{{users}}'
 
       - name: Setup | authorized key upload
         authorized_key: user={{ item.username }} key="{{ lookup('file', 'files/{{ item.username }}.pub') }}"
