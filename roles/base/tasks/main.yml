@@ -1,2 +1,34 @@
 ---
-# tasks file for base
+  - name: set timezone to PDT/PST  timezone
+    timezone: name=America/Los_Angeles
+
+  - name: Install system updates
+    apt: update_cache=yes upgrade=dist cache_valid_time=1800
+
+  - name: Install common managment utilities
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - screen
+      - dstat
+      - git
+      - sysstat
+      - unzip
+    tags: ['packages']
+
+  - name: create /opt/redux and /opt/redux/scripts directory
+    file:
+      path: /opt/redux/scripts
+      state: directory
+      recurse: yes
+      owner: root
+      group: root
+      mode: 0755
+
+  - name: Set bashrc for root
+    copy: src=bashrc dest=/root/.bashrc  owner=root group=root mode=0644
+
+  - name: Set bash_profile for user accounts
+    copy: src=bash_profile dest=/etc/skel/.bash_profile owner=root group=root mode=0644
+
+  - name: Install motd
+    copy: src=etc_motd dest=/etc/motd owner=root group=root mode=0644
