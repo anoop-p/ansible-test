@@ -3,7 +3,7 @@
     yum: name='*' state=latest
 
   - name: Set system hostname
-    hostname: name= {{item.servername}}
+    hostname: name= '{{ item.servername }}'
     with_items: '{{bastionname}}'
 
   - name: update /etc/hosts
@@ -33,7 +33,7 @@
     pip: name=ansible
 
   - name: Create users
-    user: name={{ item.username}} shell=/bin/bash createhome=yes
+    user: name={{ item.username }} shell=/bin/bash createhome=yes
     with_items: '{{users}}'
     tags: ['bastion-user-creation']
 
