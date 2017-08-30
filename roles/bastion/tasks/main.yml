@@ -29,6 +29,7 @@
       - net-tools
       - wget
       - curl
+      - ntp
 
   - name: Install Ansible
     pip: name=ansible
