@@ -11,7 +11,7 @@
     with_items: '{{bastionname}}'
 
   - name : set hostname on reboot
-    lineinfile: "dest=/etc/rc.local insertafter=BOF line='hostname {{ item.servername }}' state=present"
+    lineinfile: "dest=/etc/rc.local insertafter=^# line='hostname {{ item.servername }}' state=present"
     with_items: '{{bastionname}}'
 
   - name: Set bashrc for root
