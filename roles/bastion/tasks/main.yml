@@ -4,6 +4,7 @@
 
   - name: Set system hostname
     hostname: name= {{item.servername}}
+    with_items: '{{bastionname}}'
 
   - name: update /etc/hosts
     lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 {{ item.servername }}'  state=present"
