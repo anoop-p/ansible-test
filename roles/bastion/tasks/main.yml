@@ -1,0 +1,73 @@
+---
+  - name: Install system updates
+    yum: name='*' state=latest
+
+  - name: Set system hostname
+    hostname: name= {{item.servername}}
+
+  - name: update /etc/hosts
+    lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 {{ item.servername }}'  state=present"
+
+  - name: Set bashrc for root
+    copy: src=bashrc dest=/root/.bashrc  owner=root group=root mode=0644
+
+  - name: Set bash_profile for user accounts
+    copy: src=bash_profile dest=/etc/skel/.bash_profile owner=root group=root mode=0644
+
+  - name: Install basic system utilities
+    yum: pkg={{item}} state=installed
+    with_items:
+      - git
+      - epel-release
+      - dstat
+      - telnet
+      - bind-utils
+      - screen
+      - tmux
+      - net-tools
+      - wget
+      - curl
+
+  - name: Install Ansible
+    pip: name=ansible
+
+  - name: Create users
+    user: name={{ item.username}} shell=/bin/bash createhome=yes
+    with_items: '{{users}}'
+    tags: ['bastion-user-creation']
+
+  - name: Setup | authorized key upload
+    authorized_key: user={{ item.username }} key="{{ lookup('file', 'files/{{ item.username }}.pub') }}"
+    with_items: '{{users}}'
+    tags: ['bastion-user-creation']
+
+  - name: Sudoers | update sudoers file and validate
+    lineinfile: "dest=/etc/sudoers insertafter=EOF line='{{ item.username }} ALL=(ALL) NOPASSWD: ALL' regexp='^{{ item.username }} .*' state=present"
+    when: '{{ item.use_sudo }} == True'
+    with_items: '{{users}}'
+    tags: ['bastion-user-creation']
+
+  - name: Install ntp on SSH bastion node
+    yum: name=ntp state=installed
+
+  - name: Copy NTP configuration
+    template: src=ntp.conf.j2 dest=/etc/ntp.conf
+    notify: Restart NTP service
+
+  - name: Install fail2ban
+    yum: name=fail2ban state=installed
+
+  - name: Copy fail2ban configuration file
+    copy: src=jail.local dest=/etc/fail2ban/jail.local owner=root group=root mode=0644
+
+  - name: Start NTP client
+    service: name=ntpd state=started enabled=yes
+
+  - name: Start fail2ban service
+    service: name=fail2ban state=started enabled=yes
+
+  - name: Enable SSH service in system startup
+    service: name=sshd state=started enabled=yes
+
+  - name: Install motd
+    copy: src=etc_motd dest=/etc/motd owner=root group=root mode=0644
