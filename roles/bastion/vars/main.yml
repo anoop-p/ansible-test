@@ -1,3 +1,9 @@
 ---
-bastionname:
-  - servername: nr-dakota-oprs-bastion.dakotafunds.com
+  bastionname:
+    - servername: nr-dakota-oprs-bastion.dakotafunds.com
+  users:
+    - username: redux
+      use_sudo: yes
+    - username: deploy
+      use_sudo: yes
+    
