@@ -3,7 +3,7 @@
     yum: name='*' state=latest
 
   - name: Set system hostname
-    hostname: name= '{{ item.servername }}'
+    hostname: name='{{ item.servername }}'
     with_items: '{{bastionname}}'
 
   - name: update /etc/hosts
