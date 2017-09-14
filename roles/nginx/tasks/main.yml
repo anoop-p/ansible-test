@@ -21,7 +21,7 @@
     tags: [ 'configure' ]
 
   - name: configure vhosts
-    template: src=vhosts.conf dest=/etc/nginx/conf.d/{{domain_name}}.conf owner=root group=root mode=0644
+    template: src=vhost.conf dest=/etc/nginx/conf.d/{{domain_name}}.conf owner=root group=root mode=0644
     tags: [ 'configure' ]
 
   - name: config test and restart
