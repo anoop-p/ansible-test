@@ -1,0 +1,72 @@
+---
+- name: Add Percona apt signing key
+  apt_key: keyserver=keys.gnupg.net id=8507EFA5 state=present
+
+- name: Add Percona repository
+  apt_repository: repo='deb http://repo.percona.com/apt trusty main' state=present
+
+- name: Add Percona source repository
+  apt_repository: repo='deb-src http://repo.percona.com/apt trusty main' state=present
+
+- name: Update apt cache
+  apt: update_cache=yes
+
+- name: Install python packages
+  apt: pkg={{ item }} state=present
+  with_items:
+    - python-pycurl
+    - python-mysqldb
+
+- name: Install | configure debconf
+  debconf:
+    name: "percona-server-server-5.7"
+    question: "percona-server-server/root_password"
+    value: "{{ mysql_root_pass }}"
+    vtype: "password"
+
+- name: Install | configure debconf
+  debconf:
+    name: "percona-server-server-5.7"
+    question: "percona-server-server/root_password_again"
+    value: "{{ mysql_root_pass }}"
+    vtype: "password"
+
+- name: Install Percona Server packages
+  apt: pkg={{ item }} state=present update_cache=yes
+  with_items:
+    - percona-server-common-5.7
+    - percona-server-client-5.7
+    - percona-server-server-5.7
+
+- name: Start Percona MySQL Server
+  service: name=mysql state=started enabled=yes
+
+- name: Update MySQL root password
+  mysql_user: name=root host={{ item }} password={{ mysql_root_pass }} login_user=root login_password={{ mysql_root_pass }} check_implicit_admin=yes
+  with_items:
+          - 127.0.0.1
+          - localhost
+
+- name: Copy MySQL option file to home directory
+  template: src=root.my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+
+- name: create deploy user
+  mysql_user: name={{ db_user_name }} password={{ db_user_pass }} priv=*.*:ALL host= {{ item }} state=present
+  with_items:
+          - 127.0.0.1
+          - localhost
+
+- name: Copy MySQL option file to home directory
+  template: src=deploy.my.cnf.j2 dest=/home/deploy/.my.cnf owner=deploy group=deploy mode=0600
+
+- name: Ensure anonymous users are not in the database
+  mysql_user: name='' host=localhost state=absent
+
+- name: remove test database
+  mysql_db: name=test state=absent
+
+- name: Copy custom configuration file
+  copy: src=redux.conf dest=/etc/mysql/percona-server.conf.d/redux.conf owner=root group=root mode=0644
+
+- name: Restart Percona MySQL Server
+  service: name=mysql state=restarted

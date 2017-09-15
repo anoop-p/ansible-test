@@ -13,9 +13,12 @@
       - git
       - sysstat
       - unzip
-
     tags: ['packages']
 
+  - name: Remove apparmor
+    apt:  pkg=apparmor state=absent
+    tags: ['packages']
+    
   - name: create /opt/redux and /opt/redux/scripts directory
     file:
       path: /opt/redux/scripts

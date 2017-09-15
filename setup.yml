@@ -7,3 +7,4 @@
       - users
       - nginx
       - php7-fpm
+      - percona-mysql
