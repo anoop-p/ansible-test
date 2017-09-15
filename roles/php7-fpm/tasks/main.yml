@@ -10,7 +10,6 @@
       - php7.0-fpm
       - php7.0-dom
       - php7.0-gd
-      - php7.0-hash
       - php7.0-json
       - php7.0-pcre
       - php7.0-pdo
