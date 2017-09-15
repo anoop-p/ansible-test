@@ -48,7 +48,7 @@
           - localhost
 
 - name: Copy MySQL option file to home directory
-  template: src=root.my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
+  template: src=root_my.cnf.j2 dest=/root/.my.cnf owner=root group=root mode=0600
 
 - name: create deploy user
   mysql_user: name={{ db_user_name }} password={{ db_user_pass }} priv=*.*:ALL host= {{ item }} state=present
@@ -57,7 +57,7 @@
           - localhost
 
 - name: Copy MySQL option file to home directory
-  template: src=deploy.my.cnf.j2 dest=/home/deploy/.my.cnf owner=deploy group=deploy mode=0600
+  template: src=deploy_my.cnf.j2 dest=/home/deploy/.my.cnf owner=deploy group=deploy mode=0600
 
 - name: Ensure anonymous users are not in the database
   mysql_user: name='' host=localhost state=absent
