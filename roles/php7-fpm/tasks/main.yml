@@ -11,7 +11,6 @@
       - php7.0-dom
       - php7.0-gd
       - php7.0-json
-      - php7.0-pcre
       - php7.0-pdo
       - php7.0-curl
       - php7.0-session
