@@ -28,4 +28,4 @@
     notify: Restart php-fpm
 
   - name: Start php-fpm service
-    service: name=php-fpm7.0 state=started enabled=yes
+    notify: Start php-fpm

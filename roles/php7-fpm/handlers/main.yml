@@ -1,3 +1,6 @@
 ---
-- name: Restart php-fpm
-  action: service name=php-fpm7.0 state=restarted enabled=yes
+  - name: Restart php-fpm
+    service: name=php7.0-fpm state=restarted
+
+  - name: Start php-fpm
+    service: name=php7.0-fpm state=started  enabled=yes
