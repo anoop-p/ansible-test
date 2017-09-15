@@ -1,0 +1,39 @@
+---
+  - name: Install php7
+    apt: pkg=php7.0 state=latest update_cache=yes cache_valid_time=3600
+    tags: [ 'packages' ]
+
+  - name: Install drupal modules
+    apt: pkg={{ item }} state=latest
+    with_items:
+      - php7.0-mysql
+      - php7.0-fpm
+      - php7.0-date
+      - php7.0-dom
+      - php7.0-filter
+      - php7.0-gd
+      - php7.0-hash
+      - php7.0-json
+      - php7.0-pcre
+      - php7.0-pdo
+      - php7.0-curl
+      - php7.0-session
+      - php7.0-simplexml
+      - php7.0-spl
+      - php7.0-tokenizer
+      - php7.0-xml
+
+  - name: Add php-fpm configuration files
+    template: src=www.conf.j2 dest=/etc/php/7.0/fpm/pool.d/www.conf owner=root group=root mode=0644
+    notify: Restart php-fpm
+
+  - name: Copy fpm/php.ini file
+    template: src=php.ini.j2 dest=/etc/php/7.0/fpm/php.ini owner=root group=root mode=0644
+    notify: Restart php-fpm
+
+  - name: Copy cli/php.ini file
+    template: src=php.ini.j2 dest=/etc/php/7.0/cli/php.ini owner=root group=root mode=0644
+    notify: Restart php-fpm
+
+  - name: Start php-fpm service
+    service: name=php-fpm7.0 state=started enabled=yes
