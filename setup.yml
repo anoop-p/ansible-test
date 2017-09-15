@@ -6,3 +6,4 @@
       - base
       - users
       - nginx
+      - php7-fpm
