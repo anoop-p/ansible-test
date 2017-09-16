@@ -1,0 +1,42 @@
+---
+- include: user.yml
+  when: solr_create_user
+
+- name: Check if Solr has been installed already.
+  stat:
+    path: "{{ solr_install_path }}"
+  register: solr_install_path_status
+
+- name: Download Solr.
+  get_url:
+    url: "{{ solr_mirror }}/lucene/solr/{{ solr_version }}/{{ solr_filename }}.tgz"
+    dest: "{{ solr_workspace }}/{{ solr_filename }}.tgz"
+    force: no
+  when: solr_install_path_status.stat.isdir is not defined
+  register: solr_download_status
+
+- name: Expand Solr.
+  unarchive:
+    src: "{{ solr_workspace }}/{{ solr_filename }}.tgz"
+    dest: "{{ solr_workspace }}"
+    copy: no
+  when: solr_download_status.changed
+
+# Install Solr
+- include: install.yml
+
+- name: Ensure solr is started and enabled on boot if configured.
+  service:
+    name: "{{ solr_service_name }}"
+    state: "{{ solr_service_state }}"
+    enabled: yes
+  when: solr_service_manage
+
+# Configure solr.
+- include: configure.yml
+
+# Create cores, if any are configured.
+- include: cores.yml
+
+- include: trim-fat.yml
+  static: no
