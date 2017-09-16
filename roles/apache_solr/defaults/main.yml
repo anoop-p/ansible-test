@@ -28,3 +28,6 @@ solr_cores:
   - collection1
 
 solr_config_file: /etc/default/{{ solr_service_name }}.in.sh
+
+# Enable restart solr handler
+solr_restart_handler_enabled: true
