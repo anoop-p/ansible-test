@@ -22,5 +22,5 @@
     path: "{{ solr_home }}/logs"
     state: directory
     owner: root
-    group: {{ solr_user }}
+    group: "{{ solr_user }}"
     mode: 0775
