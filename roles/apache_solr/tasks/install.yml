@@ -16,3 +16,11 @@
     -p {{ solr_port }}
     creates={{ solr_install_path }}/bin/solr
   register: solr_install_script_result
+
+- name: Fix permission issue with logs directory
+  file:
+    path: "{{ solr_home }}/logs"
+    state: directory
+    owner: root
+    group: {{ solr_user }}
+    mode: 0775
