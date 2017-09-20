@@ -1,7 +1,7 @@
 ---
 drupal_db:
   user: "{{ drupal_mysql_user }}"
-  password: "mAeia4j#1wiwXbdd"
+  password: "mAeia4j*1wiwXbdd"
   name: "{{ drupal_mysql_db }}"
 
 mysql_databases:
