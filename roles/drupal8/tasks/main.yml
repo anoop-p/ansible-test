@@ -19,7 +19,7 @@
   file:
     path: /usr/local/bin/composer
     mode: 0755
-  
+
 - name: Create MySQL database for drupal
   mysql_db: name={{ drupal_db.name }} state=present
 
@@ -72,6 +72,6 @@
     --account-name={{ drupal_account_name }}
     --account-pass={{ drupal_account_pass }}
     --db-url=mysql://{{ drupal_db.user }}:{{ drupal_db.password }}@localhost/{{ drupal_db.name }}
-    -r {{ drupal_docroot }}
+    --root={{ drupal_docroot }}
   when: not drush_status.stdout | search("Drupal bootstrap\s+:\s+Successful")
   notify: restart nginx
