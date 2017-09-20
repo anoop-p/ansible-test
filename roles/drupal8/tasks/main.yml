@@ -14,14 +14,12 @@
   get_url:
     url: "{{ composer_phar_url }}"
     dest: /usr/local/bin/composer
-  when: drupal_major_version == 8
 
 - name: Ensure Composer is executable.
   file:
     path: /usr/local/bin/composer
     mode: 0755
-  when: drupal_major_version == 8
-
+  
 - name: Create MySQL database for drupal
   mysql_db: name={{ drupal_db.name }} state=present
 
