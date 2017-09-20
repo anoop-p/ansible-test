@@ -4,9 +4,9 @@ drupal_mysql_user: "dev_dakota"
 drupal_mysql_db: "dev_dakota"
 drupal_site_name: "dev.dakotafunds.com"
 drupal_db:
-  user: {{ drupal_mysql_user }}
+  user: "{{ drupal_mysql_user }}"
   password: "mAeia4j#1wiwXbdd"
-  name: {{ drupal_mysql_db }}
+  name: "{{ drupal_mysql_db }}"
 
 mysql_databases:
   - name: "{{ drupal_db.name }}"
