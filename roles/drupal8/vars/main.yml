@@ -1,0 +1,9 @@
+---
+mysql_root_home: /root
+mysql_root_username: "root"
+
+drush_version: "8.1.12"
+drush_phar_url: "https://github.com/drush-ops/drush/releases/download/{{ drush_version }}/drush.phar"
+drupal_docroot: "/home/deploy/public_html/{{ drual_site_name }}"
+
+composer_phar_url: "http://getcomposer.org/composer.phar"

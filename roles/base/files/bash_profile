@@ -6,3 +6,8 @@ export HISTTIMEFORMAT="%d/%m/%y %T "
 alias psf='ps fax -o pid,pgid,start,stat,cmd'
 alias psu='ps fU $(id -u) -o ruser,pid,pgid,start,stat,cmd'
 alias dusn='du -smc * |sort -n'
+
+# Get the aliases and functions
+if [ -f ~/.bashrc ]; then
+        . ~/.bashrc
+fi

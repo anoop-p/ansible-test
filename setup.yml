@@ -9,3 +9,4 @@
       - php7-fpm
       - percona-mysql
       - apache_solr
+      - drupal8
