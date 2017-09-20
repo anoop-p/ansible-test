@@ -14,7 +14,7 @@ mysql_databases:
     collation: utf8mb4_general_ci
 
 
-drupal_docroot: "/home/deploy/public_html/{{ drual_site_name }}"
+drupal_docroot: "/home/deploy/public_html/{{ drual_system_site_name }}"
 
 drupal_site_name: "Dakota {{ drupal_system_site_name }}"
 drupal_account_name: "admin"
