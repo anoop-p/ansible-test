@@ -1,9 +1,16 @@
 ---
-mysql_root_home: /root
-mysql_root_username: "root"
 
 drush_version: "8.1.12"
 drush_phar_url: "https://github.com/drush-ops/drush/releases/download/{{ drush_version }}/drush.phar"
-drupal_docroot: "/home/deploy/public_html/{{ drual_site_name }}"
-
 composer_phar_url: "http://getcomposer.org/composer.phar"
+drupal_mysql_user: "dev_dakota"
+drupal_mysql_db: "dev_dakota"
+drupal_system_site_name: "dev.dakotafunds.com"
+
+drupal_docroot: "/home/deploy/public_html/{{ drual_system_site_name }}"
+
+drupal_site_name: "Dakota {{ drupal_system_site_name }}"
+drupal_account_name: "admin"
+drupal_account_pass: "RDmx5qzzs~u9asrh"
+drupal_version_branch: "8.3.4"
+drupal_system_user: deploy

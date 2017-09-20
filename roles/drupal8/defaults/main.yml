@@ -1,8 +1,4 @@
 ---
-
-drupal_mysql_user: "dev_dakota"
-drupal_mysql_db: "dev_dakota"
-drupal_system_site_name: "dev.dakotafunds.com"
 drupal_db:
   user: "{{ drupal_mysql_user }}"
   password: "mAeia4j#1wiwXbdd"
@@ -12,13 +8,3 @@ mysql_databases:
   - name: "{{ drupal_db.name }}"
     encoding: utf8mb4
     collation: utf8mb4_general_ci
-
-
-drupal_docroot: "/home/deploy/public_html/{{ drual_system_site_name }}"
-
-drupal_site_name: "Dakota {{ drupal_system_site_name }}"
-drupal_account_name: "admin"
-drupal_account_pass: "admin123"
-
-drupal_version_branch: "8.3.4"
-drupal_system_user: deploy
