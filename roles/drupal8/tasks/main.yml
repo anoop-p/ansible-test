@@ -20,15 +20,6 @@
     path: /usr/local/bin/composer
     mode: 0755
 
-- name: Create MySQL database for drupal
-  mysql_db: name={{ drupal_db.name }} state=present
-
-- name: Configure MySQL user for drupal
-  mysql_user: name={{ drupal_db.user }} password={{ drupal_db.password }} priv={{ drupal_db.name }}.*:ALL host={{ item }} state=present
-  with_items:
-          - 127.0.0.1
-          - localhost
-
 - name: Create druapl home
   file:
     path: "{{ drupal_docroot }}"
@@ -57,6 +48,12 @@
     working_dir: "{{ drupal_docroot }}"
   when: not drush_status.stdout | search("Drupal bootstrap\s+:\s+Successful")
 
+- name: Configure MySQL user for drupal,full access to create database
+  mysql_user: name={{ drupal_db.user }} password={{ drupal_db.password }} priv=*.*:ALL host={{ item }} state=present
+  with_items:
+          - 127.0.0.1
+          - localhost
+
 - name: Drupal | Give appropriate permissions for files directory
   file:
     dest: "{{ drupal_docroot }}"
@@ -76,3 +73,15 @@
 
   when: not drush_status.stdout | search("Drupal bootstrap\s+:\s+Successful")
   notify: restart nginx
+
+- name: Configure MySQL user for drupal,revoke full access
+  mysql_user: name={{ drupal_db.user }} password={{ drupal_db.password }} priv=*.*:USAGE host={{ item }} state=present
+  with_items:
+          - 127.0.0.1
+          - localhost
+
+- name: Configure MySQL user for drupal,restrict access to drupal db
+  mysql_user: name={{ drupal_db.user }} password={{ drupal_db.password }} priv={{ drupal_db.name }}.*:ALL host={{ item }} state=present
+  with_items:
+          - 127.0.0.1
+          - localhost
