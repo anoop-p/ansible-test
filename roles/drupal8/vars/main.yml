@@ -7,7 +7,7 @@ drupal_mysql_user: "dev_dakota"
 drupal_mysql_db: "dev_dakota"
 drupal_system_site_name: "dev.dakotafunds.com"
 
-drupal_docroot: "/home/deploy/public_html/{{ drupal_system_site_name }}"
+drupal_docroot: "/home/deploy/public_html"
 
 drupal_site_name: "Dakota {{ drupal_system_site_name }}"
 drupal_account_name: "admin"
