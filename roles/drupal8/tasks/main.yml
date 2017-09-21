@@ -92,3 +92,10 @@
   with_items:
           - 127.0.0.1
           - localhost
+
+- name: Set permission of druapl home to deploy
+  file:
+    path: "{{ drupal_docroot }}"
+    recurse: yes
+    owner: "{{ drupal_system_user }}"
+    group: "{{ drupal_system_user }}"
