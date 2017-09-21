@@ -20,6 +20,13 @@
     path: /usr/local/bin/composer
     mode: 0755
 
+- name: Install sendmail
+  apt: pkg=sendmail state=latest
+
+- name: ensure sendmail started
+  service: name=sendmail state=started enabled=yes
+
+
 - name: Create druapl home
   file:
     path: "{{ drupal_docroot }}"
