@@ -141,7 +141,7 @@
 - name: enable solr module using drush
   command: drush en search_api_solr search_api_solr_defaults -y
   args:
-    chdir={{ drupal_docroot }}/
+    chdir: {{ drupal_docroot }}/
 
 - name: Set permission of druapl home to deploy
   file:
