@@ -104,11 +104,43 @@
 
 - name: Composer | install solr search module
   composer:
+    command: show
+    arguments: drupal/search_api_solr
+    working_dir: "{{ drupal_docroot }}"
+  become: true
+  become_user: "{{ drupal_system_user }}"
+  register: check_module
+
+- name: enable swap | dependencey for composer
+  command: "{{ item }}"
+  with_items:
+    - dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
+    - chmod 600 /var/swap.1
+    - swapon /var/swap.1
+  when: check_module | search ("Package drupal/search_api_solr not found")
+
+- name: Composer | install solr search module
+  composer:
     command: require
     arguments: drupal/search_api_solr
     working_dir: "{{ drupal_docroot }}"
   become: true
   become_user: "{{ drupal_system_user }}"
+  when: check_module | search ("Package drupal/search_api_solr not found")
+  
+- name: disable swap | dependencey for composer
+  command: "{{ item }}"
+  with_items:
+    - swapoff /var/swap.1
+    - rm -f /var/swap.1
+  when: check_module | search ("Package drupal/search_api_solr not found")
+
+- name: Configure solr
+  copy: src= {{ drupal_docroot }}/modules/contrib/search_api_solr/solr-conf/6.x dest= {{solr_home}}/conf remote_src=yes
+
+- name: enable solr module using drush
+  command: drush en search_api_solr search_api_solr_defaults
+
 
 - name: Set permission of druapl home to deploy
   file:
