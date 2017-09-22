@@ -18,7 +18,7 @@
   - name: Remove apparmor
     apt:  pkg=apparmor state=absent
     tags: ['packages']
-    
+
   - name: create /opt/redux and /opt/redux/scripts directory
     file:
       path: /opt/redux/scripts
@@ -27,6 +27,13 @@
       owner: root
       group: root
       mode: 0755
+
+  - name: Install ntp on server
+    yum: name=ntp state=installed
+
+  - name: Copy NTP configuration
+    template: src=ntp.conf.j2 dest=/etc/ntp.conf
+    notify: Restart NTP service
 
   - name: Set bashrc for root
     copy: src=bashrc dest=/root/.bashrc  owner=root group=root mode=0644

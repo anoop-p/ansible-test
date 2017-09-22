@@ -2,9 +2,6 @@
 users:
   - username: redux
     use_sudo: yes
-    
+
   - username: deploy
     use_sudo: yes
-
-  - username: nosudo
-    use_sudo: no

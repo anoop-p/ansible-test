@@ -1,7 +1,7 @@
 ---
   - name: Install nginx
     apt: name=nginx state=present update_cache=yes cache_valid_time=3600
-    tags: [ 'packages' ]
+
 
   - name: create public_html directory
     file:
@@ -14,15 +14,17 @@
 
   - name: remove default site
     file: path=/etc/nginx/sites-enabled/default state=absent
-    tags: [ 'configure' ]
+
+  - name: remove default site
+    file: path=/etc/nginx/sites-available/default state=absent
 
   - name: configure nginx.conf
     copy: src=nginx.conf dest=/etc/nginx/nginx.conf owner=root group=root mode=0644
-    tags: [ 'configure' ]
+
 
   - name: configure vhosts
     template: src=vhost.conf dest=/etc/nginx/conf.d/{{domain_name}}.conf owner=root group=root mode=0644
-    tags: [ 'configure' ]
+
 
   - name: config test and restart
     command: nginx -t -c /etc/nginx/nginx.conf
@@ -35,6 +37,3 @@
 
   - name: Update logroate for nginx
     copy: src=logrotate_nginx dest=/etc/logrotate.d/nginx owner=root group=root mode=0644
-
-  - name: Update logrotate
-    command: "logrotate -f /etc/logrotate.d/nginx"

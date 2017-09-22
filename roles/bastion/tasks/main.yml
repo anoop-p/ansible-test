@@ -33,7 +33,6 @@
       - net-tools
       - wget
       - curl
-      - ntp
 
   - name: Install Ansible
     pip: name=ansible
@@ -41,19 +40,18 @@
   - name: Create users
     user: name={{ item.username }} shell=/bin/bash createhome=yes
     with_items: '{{users}}'
-    tags: ['bastion-user-creation']
+
 
   - name: Setup | authorized key upload
     authorized_key: user={{ item.username }} key="{{ lookup('file', 'files/{{ item.username }}.pub') }}"
     with_items: '{{users}}'
-    tags: ['bastion-user-creation']
+
 
   - name: Sudoers | update sudoers file and validate
     lineinfile: "dest=/etc/sudoers insertafter=EOF line='{{ item.username }} ALL=(ALL) NOPASSWD: ALL' regexp='^{{ item.username }} .*' state=present"
     when: '{{ item.use_sudo }} == True'
     with_items: '{{users}}'
-    tags: ['bastion-user-creation']
-
+    
   - name: Install ntp on SSH bastion node
     yum: name=ntp state=installed
 

@@ -1,6 +1,6 @@
 ---
   bastionname:
-    - servername: nr-dakota-oprs-bastion.dakotafunds.com
+    - servername: nr-oprs-bastion.dakotafunds.com
   users:
     - username: redux
       use_sudo: yes

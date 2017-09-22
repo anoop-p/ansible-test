@@ -1,2 +1,2 @@
 ---
-domain_name: dakotafunds.com
+domain_name: "{{ server_env }}.dakotafunds.com"
