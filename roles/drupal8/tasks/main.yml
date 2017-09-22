@@ -137,7 +137,7 @@
 
 - name: Configure solr
   command: rsync -a {{ drupal_docroot }}/modules/contrib/search_api_solr/solr-conf/6.x/ {{solr_home}}/conf/
-  
+
 - name: Set permission of files to solr
   file:
     path: "{{ solr_home }}"
@@ -150,6 +150,11 @@
     cmd:  drush en search_api_solr search_api_solr_defaults -y
     chdir: "{{ drupal_docroot }}"
 
+- name: secure drupal against HTTP Host header attacks
+  lineinfile: "dest={{ drupal_docroot }}/sites/default/settings.php insertafter=EOF line= {{ item }}  state=present"
+  with_items:
+    - $settings['trusted_host_patterns'][] = '^.+.dakotafunds.com$';
+    - $settings['trusted_host_patterns'][] = '^dakotafunds.com$';
 - name: Set permission of druapl home to deploy
   file:
     path: "{{ drupal_docroot }}"
