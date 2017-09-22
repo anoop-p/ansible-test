@@ -102,7 +102,7 @@
 
 - name: Copy credentials under deploy user
   blockinfile: |
-    dest=/home/deploy/.login.txt state=present
+    dest=/home/deploy/.login.txt create=yes
     content=" Drupal Admin : {{drupal_account_name}}
     Drupal Admin Pass: {{drupal_account_pass}}
     Mysql user: {{ drupal_mysql_user }}
