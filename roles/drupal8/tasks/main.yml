@@ -136,8 +136,8 @@
   when: '"Package drupal/search_api_solr not found" in check_module'
 
 - name: Configure solr
-  copy: src={{ drupal_docroot }}/modules/contrib/search_api_solr/solr-conf/6.x/ dest={{solr_home}}/conf/ remote_src=yes directory_mode=yes
-  
+  command: rsync -a {{ drupal_docroot }}/modules/contrib/search_api_solr/solr-conf/6.x/ {{solr_home}}/conf/ 
+
 - name: enable solr module using drush
   shell:
     cmd:  drush en search_api_solr search_api_solr_defaults -y
