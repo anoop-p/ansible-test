@@ -151,10 +151,14 @@
     chdir: "{{ drupal_docroot }}"
 
 - name: secure drupal against HTTP Host header attacks
-  lineinfile: "dest={{ drupal_docroot }}/sites/default/settings.php insertafter=EOF line= {{ item }}  state=present"
+  lineinfile:
+    dest: {{ drupal_docroot }}/sites/default/settings.php
+    insertafter: EOF
+    line: "{{ item }}"
   with_items:
     - $settings['trusted_host_patterns'][] = '^.+.dakotafunds.com$';
     - $settings['trusted_host_patterns'][] = '^dakotafunds.com$';
+    
 - name: Set permission of druapl home to deploy
   file:
     path: "{{ drupal_docroot }}"
