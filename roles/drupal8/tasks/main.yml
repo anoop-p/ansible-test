@@ -112,5 +112,5 @@
 - name: Composer | install solr search module
   composer:
     command: require
-    argument: drupal/search_api_solr
+    arguments: drupal/search_api_solr
     working_dir: "{{ drupal_docroot }}"
