@@ -107,6 +107,8 @@
     command: require
     arguments: drupal/search_api_solr
     working_dir: "{{ drupal_docroot }}"
+  become: true
+  become_user: "{{ drupal_system_user }}"
 
 - name: Set permission of druapl home to deploy
   file:
