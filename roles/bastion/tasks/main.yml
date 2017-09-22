@@ -2,18 +2,6 @@
   - name: Install system updates
     yum: name='*' state=latest
 
-  - name: Set system hostname
-    hostname: name='{{ item.servername }}'
-    with_items: '{{bastionname}}'
-
-  - name: update /etc/hosts
-    lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 {{ item.servername }}'  state=present"
-    with_items: '{{bastionname}}'
-
-  - name : set hostname on reboot
-    lineinfile: "dest=/etc/rc.local insertafter=^# line='hostname {{ item.servername }}' state=present"
-    with_items: '{{bastionname}}'
-
   - name: Set bashrc for root
     copy: src=bashrc dest=/root/.bashrc  owner=root group=root mode=0644
 
