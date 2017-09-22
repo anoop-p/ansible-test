@@ -103,8 +103,14 @@
 - name: Copy credentials under deploy user
   blockinfile: |
     dest=/home/deploy/.login.txt create=yes
-    content=" Drupal Admin : {{drupal_account_name}}
+    content="Drupal Admin : {{drupal_account_name}}
     Drupal Admin Pass: {{drupal_account_pass}}
     Mysql user: {{ drupal_mysql_user }}
     MySQL DB: {{ drupal_mysql_db }}
     MySQL Pass: {{ drupal_db.password }} "
+
+- name: Composer | install solr search module
+  composer:
+    command: require
+    argument: drupal/search_api_solr
+    working_dir: "{{ drupal_docroot }}"
