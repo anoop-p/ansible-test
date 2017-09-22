@@ -139,8 +139,8 @@
   command: cp -r {{ drupal_docroot }}/modules/contrib/search_api_solr/solr-conf/6.x/ {{solr_home}}/conf/
 
 - name: enable solr module using drush
-  command: drush en search_api_solr search_api_solr_defaults -y
-  args:
+  shell:
+    cmd:  drush en search_api_solr search_api_solr_defaults -y
     chdir: "{{ drupal_docroot }}"
 
 - name: Set permission of druapl home to deploy
