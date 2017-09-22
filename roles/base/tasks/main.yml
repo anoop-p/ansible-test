@@ -33,7 +33,9 @@
 
   - name: Copy NTP configuration
     template: src=ntp.conf.j2 dest=/etc/ntp.conf
-    notify: Restart NTP service
+
+  - name: Start NTP client
+    service: name=ntp state=started enabled=yes
 
   - name: Set bashrc for root
     copy: src=bashrc dest=/root/.bashrc  owner=root group=root mode=0644
