@@ -99,3 +99,12 @@
     recurse: yes
     owner: "{{ drupal_system_user }}"
     group: "{{ drupal_system_user }}"
+
+- name: Copy credentials under deploy user
+  - blockinfile: |
+    dest=/home/deploy/.login.txt state=present
+    content=" Drupal Admin : {{drupal_account_name}}
+    Drupal Admin Pass: {{drupal_account_pass}}
+    Mysql user: {{ drupal_mysql_user }}
+    MySQL DB: {{ drupal_mysql_db }}
+    MySQL Pass: {{ drupal_db.password }} "
