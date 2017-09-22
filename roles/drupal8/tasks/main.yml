@@ -137,6 +137,8 @@
 
 - name: Configure solr
   command: rsync -a {{ drupal_docroot }}/modules/contrib/search_api_solr/solr-conf/6.x/ {{solr_home}}/conf/
+  
+- name: Set permission of files to solr
   file:
     path: "{{ solr_home }}"
     recurse: yes
