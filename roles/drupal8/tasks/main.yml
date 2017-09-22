@@ -93,13 +93,6 @@
           - 127.0.0.1
           - localhost
 
-- name: Set permission of druapl home to deploy
-  file:
-    path: "{{ drupal_docroot }}"
-    recurse: yes
-    owner: "{{ drupal_system_user }}"
-    group: "{{ drupal_system_user }}"
-
 - name: Copy credentials under deploy user
   blockinfile: |
     dest=/home/deploy/.login.txt create=yes
@@ -114,3 +107,10 @@
     command: require
     arguments: drupal/search_api_solr
     working_dir: "{{ drupal_docroot }}"
+
+- name: Set permission of druapl home to deploy
+  file:
+    path: "{{ drupal_docroot }}"
+    recurse: yes
+    owner: "{{ drupal_system_user }}"
+    group: "{{ drupal_system_user }}"
