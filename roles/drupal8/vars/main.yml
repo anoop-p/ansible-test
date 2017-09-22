@@ -15,3 +15,5 @@ drupal_account_pass: "RDmx5qzzs~u9asrh"
 drupal_version_branch: "8.3.4"
 drupal_system_user: deploy
 solr_home: "/opt/solr/data/collection1"
+solr_user: solr
+solr_group: solr
