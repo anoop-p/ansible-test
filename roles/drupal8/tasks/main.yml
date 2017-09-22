@@ -101,7 +101,7 @@
     group: "{{ drupal_system_user }}"
 
 - name: Copy credentials under deploy user
-  - blockinfile: |
+  blockinfile: |
     dest=/home/deploy/.login.txt state=present
     content=" Drupal Admin : {{drupal_account_name}}
     Drupal Admin Pass: {{drupal_account_pass}}
