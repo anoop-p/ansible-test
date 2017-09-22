@@ -152,7 +152,7 @@
 
 - name: secure drupal against HTTP Host header attacks
   lineinfile:
-    dest: "{{ drupal_docroot }}"/sites/default/settings.php
+    dest: "{{ drupal_docroot }}/sites/default/settings.php"
     insertafter: EOF
     line: "{{ item }}"
   with_items:
