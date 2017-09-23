@@ -7,7 +7,7 @@ users:
     use_sudo: yes
 
   - username: nosudo
-    user_sudo: no
+    use_sudo: no
 
 remove-users:
   - user: nosudo
