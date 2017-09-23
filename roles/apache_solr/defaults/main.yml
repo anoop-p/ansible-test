@@ -25,7 +25,7 @@ solr_xmx: "256M"
 solr_timezone: "PDT"
 
 solr_cores:
-  - d8
+  - collection1
 
 solr_config_file: /etc/default/{{ solr_service_name }}.in.sh
 
