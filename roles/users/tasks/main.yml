@@ -24,3 +24,4 @@
   user: name={{ item.user}} state=absent  remove=yes
   with_items: '{{ remove_users }}'
   when: user_exist.rc == 0
+  ignore_errors: yes
