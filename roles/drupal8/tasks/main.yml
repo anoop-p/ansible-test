@@ -102,23 +102,13 @@
     MySQL DB: {{ drupal_mysql_db }}
     MySQL Pass: {{ drupal_db.password }} "
 
-- name: Composer | install solr search module
-  composer:
-    command: show
-    arguments: drupal/search_api_solr
-    working_dir: "{{ drupal_docroot }}"
-  become: true
-  become_user: "{{ drupal_system_user }}"
-  register: check_module
-  ignore_errors: yes # continue with the playbook
-
 - name: enable swap | dependencey for composer
   command: "{{ item }}"
   with_items:
     - dd if=/dev/zero of=/var/swap.1 bs=1M count=1024
     - chmod 600 /var/swap.1
     - swapon /var/swap.1
-  when: '"Package drupal/search_api_solr not found" in check_module'
+
 
 - name: Composer | install solr search module
   composer:
@@ -127,14 +117,14 @@
     working_dir: "{{ drupal_docroot }}"
   become: true
   become_user: "{{ drupal_system_user }}"
-  when: '"Package drupal/search_api_solr not found" in check_module'
+
 
 - name: disable swap | dependencey for composer
   command: "{{ item }}"
   with_items:
     - swapoff /var/swap.1
     - rm -f /var/swap.1
-  when: '"Package drupal/search_api_solr not found" in check_module'
+  
 
 - name: Configure solr
   command: rsync -a {{ drupal_docroot }}/modules/contrib/search_api_solr/solr-conf/6.x/ {{solr_home}}/conf/
