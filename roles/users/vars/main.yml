@@ -5,3 +5,9 @@ users:
 
   - username: deploy
     use_sudo: yes
+
+  - username: nosudo
+    user_sudo: no
+
+remove-users:
+  - user: nosudo

@@ -13,3 +13,14 @@
   when: '{{ item.use_sudo }} == True'
   with_items: '{{users}}'
   tags: ['user-creation']
+
+- name: Check if user exists
+  command: getent passwd {{ item.user}}
+  with_items: '{{ remove-users }}'
+  register: user_exist
+  ignore_errors: yes # continue with the playbook
+
+- name: Remove users
+  user: name={{ item.user}} state=absent  remove=yes
+  with_items: '{{ remove-users }}'
+  when: user_exist.rc == 0
