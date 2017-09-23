@@ -9,5 +9,5 @@ users:
   - username: nosudo
     use_sudo: no
 
-remove-users:
+remove_users:
   - user: nosudo
