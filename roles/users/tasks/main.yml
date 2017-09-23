@@ -25,6 +25,3 @@
   with_items: '{{ remove_users }}'
   when: user_exist | success
   ignore_errors: yes
-
-remove_users:
-  - user: nosudo
