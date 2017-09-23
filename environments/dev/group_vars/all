@@ -1,0 +1,38 @@
+# Base
+# --------------------------------------------------
+ntp1_server: 0.amazon.pool.ntp.org
+ntp2_server: 1.amazon.pool.ntp.org
+ntp3_server: 2.amazon.pool.ntp.org
+ntp4_server: 3.amazon.pool.ntp.org
+
+env_host_name: nr-oprs-dev.dakota.network
+
+# PHP-FPM
+# --------------------------------------------------
+max_children: 50
+start_servers: 5
+min_spare_servers: 5
+max_spare_servers: 35
+max_requests: 900
+
+#MySQL
+# --------------------------------------------------
+mysql_port: 3306
+mysql_root_pass: z$rpcvInfezolb9Xuub3beyb
+db_user_name: deploy
+db_user_pass: z*dfgsdYtdgetvry9Xqwes3xqE
+
+#Nginx
+# --------------------------------------------------
+env_domain_name: dev.dakota.network
+
+#drupal
+# --------------------------------------------------
+env_root_domain: dakota.network
+env_drupal_mysql_user: dev_dakota
+env_drupal_mysql_db: dev_dakota
+env_drupal_mysql_pass: mAeia4j*1wiwXbdd
+env_drupal_domain_name: dev.dakota.network
+env_drupal_admin: admin
+env_drupal_admin_pass: RDmx5qzzs~u9asrh
+env_deploy_user: deploy

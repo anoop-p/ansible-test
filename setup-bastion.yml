@@ -2,14 +2,5 @@
 - hosts: control
   become: true
   gather_facts: false
-  tasks:
-    
-    - name: Set system hostname
-      hostname: name=nr-oprs-bastion.dakotafunds.com
-    - name: update /etc/hosts
-      lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 nr-oprs-bastion.dakotafunds.com'  state=present"
-
-    - name : set hostname on reboot
-      lineinfile: "dest=/etc/rc.local insertafter=^# line='hostname nr-oprs-bastion.dakotafunds.com' state=present"
-
+  
 - include: bastion.yml

@@ -5,15 +5,7 @@
   tasks:
     - name: update apt cache
       apt: update_cache=yes cache_valid_time=86400
-
-    - name: Set system hostname
-      hostname: name=nr-oprs-dev.dakotafunds.com
-    - name: update /etc/hosts
-      lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 nr-oprs-dev.dakotafunds.com'  state=present"
-
-    - name : set hostname on reboot
-      lineinfile: "dest=/etc/rc.local insertafter=^# line='hostname nr-oprs-dev.dakotafunds.com' state=present"
-
+      
 - include: base.yml
 - include: users.yml
 - include: webserver.yml

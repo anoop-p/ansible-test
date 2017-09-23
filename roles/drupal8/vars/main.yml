@@ -3,17 +3,27 @@
 drush_version: "8.1.12"
 drush_phar_url: "https://github.com/drush-ops/drush/releases/download/{{ drush_version }}/drush.phar"
 composer_phar_url: "http://getcomposer.org/composer.phar"
-drupal_mysql_user: "dev_dakota"
-drupal_mysql_db: "dev_dakota"
-drupal_system_site_name: "dev.dakotafunds.com"
+drupal_mysql_user: "{{env_drupal_mysql_user}}"
+drupal_mysql_db: "{{env_drupal_mysql_db}}"
+drupal_system_site_name: "{{env_drupal_domain_name}}"
 
 drupal_docroot: "/home/deploy/public_html"
 
 drupal_site_name: "Dakota {{ drupal_system_site_name }}"
-drupal_account_name: "admin"
-drupal_account_pass: "RDmx5qzzs~u9asrh"
+drupal_account_name: "{{env_drupal_admin}}"
+drupal_account_pass: "{{env_drupal_admin_pass}}"
 drupal_version_branch: "8.3.4"
-drupal_system_user: deploy
+drupal_system_user: {{env_deploy_user}} deploy
 solr_home: "/opt/solr/data/d8"
 solr_user: solr
 solr_group: solr
+
+drupal_db:
+  user: "{{ drupal_mysql_user }}"
+  password: "{{ env_drupal_mysql_pass}}" 
+  name: "{{ drupal_mysql_db }}"
+
+mysql_databases:
+  - name: "{{ drupal_db.name }}"
+    encoding: utf8mb4
+    collation: utf8mb4_general_ci

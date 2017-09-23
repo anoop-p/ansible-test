@@ -1,7 +1,2 @@
 ---
 # MySQL configurations
-
-mysql_port: 3306
-mysql_root_pass: z$rpcvInfezolb9Xuub3beyb
-db_user_name: deploy
-db_user_pass: z*dfgsdYtdgetvry9Xqwes3xqE

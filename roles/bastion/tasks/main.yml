@@ -22,13 +22,17 @@
       - wget
       - curl
 
-  - name: Install Ansible
-    pip: name=ansible
-
   - name: Create users
     user: name={{ item.username }} shell=/bin/bash createhome=yes
     with_items: '{{users}}'
 
+- name: Set system hostname
+  hostname: name="{{ env_host_name}}"
+- name: update /etc/hosts
+  lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 {{env_host_name}}'  state=present"
+
+- name : set hostname on reboot
+  lineinfile: "dest=/etc/rc.local insertafter=^# line='hostname {{env_host_name}}' state=present"
 
   - name: Setup | authorized key upload
     authorized_key: user={{ item.username }} key="{{ lookup('file', 'files/{{ item.username }}.pub') }}"

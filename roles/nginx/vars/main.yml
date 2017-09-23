@@ -1,2 +1,2 @@
 ---
-domain_name: "stage.dakotafunds.com"
+domain_name: "{{env_domain_name}}"

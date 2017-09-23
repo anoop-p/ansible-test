@@ -156,8 +156,8 @@
     insertafter: EOF
     line: "{{ item }}"
   with_items:
-    - $settings['trusted_host_patterns'][] = '^.+.dakotafunds.com$';
-    - $settings['trusted_host_patterns'][] = '^dakotafunds.com$';
+    - $settings['trusted_host_patterns'][] = '^.+.{{ env_root_domain }}$';
+    - $settings['trusted_host_patterns'][] = '^{{ env_root_domain }}$';
 
 - name: Set permission of druapl home to deploy
   file:
