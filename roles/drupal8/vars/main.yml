@@ -13,7 +13,7 @@ drupal_site_name: "Dakota {{ drupal_system_site_name }}"
 drupal_account_name: "{{env_drupal_admin}}"
 drupal_account_pass: "{{env_drupal_admin_pass}}"
 drupal_version_branch: "8.3.4"
-drupal_system_user: {{env_deploy_user}}
+drupal_system_user: "{{env_deploy_user}}"
 solr_home: "/opt/solr/data/d8"
 solr_user: solr
 solr_group: solr
