@@ -110,6 +110,7 @@
   become: true
   become_user: "{{ drupal_system_user }}"
   register: check_module
+  ignore_errors: yes # continue with the playbook
 
 - name: enable swap | dependencey for composer
   command: "{{ item }}"
