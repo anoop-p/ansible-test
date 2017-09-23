@@ -5,6 +5,7 @@ ntp2_server: 1.amazon.pool.ntp.org
 ntp3_server: 2.amazon.pool.ntp.org
 ntp4_server: 3.amazon.pool.ntp.org
 
+env: Stage
 env_host_name: nr-oprs-stage.dakota.network
 
 # PHP-FPM

@@ -6,3 +6,5 @@ ntp3_server: 2.amazon.pool.ntp.org
 ntp4_server: 3.amazon.pool.ntp.org
 
 env_host_name: nr-oprs-bastion.dakota.network
+
+env: Bastion
