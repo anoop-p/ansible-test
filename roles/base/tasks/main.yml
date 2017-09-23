@@ -28,13 +28,13 @@
       group: root
       mode: 0755
 
-- name: Set system hostname
-  hostname: name="{{env_host_name}}"
-- name: update /etc/hosts
-  lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 {{env_host_name}}'  state=present"
+  - name: Set system hostname
+    hostname: name="{{env_host_name}}"
+  - name: update /etc/hosts
+    lineinfile: "dest=/etc/hosts insertafter=BOF line='127.0.0.1 {{env_host_name}}'  state=present"
 
-- name : set hostname on reboot
-  lineinfile: "dest=/etc/rc.local insertafter=^# line='hostname {{env_host_name}}' state=present"
+  - name : set hostname on reboot
+    lineinfile: "dest=/etc/rc.local insertafter=^# line='hostname {{env_host_name}}' state=present"
 
   - name: Install ntp on server
     apt: name=ntp state=installed
